@@ -1,125 +1,113 @@
-let accountID=4545
-let accouuntCity="unknow"
+//Date and Time 
+// const myDate=new Date()
+// console.log("Normal : ",myDate)
+// console.log("to String : ",myDate.toString())
+// console.log("to Date String : ",myDate.toDateString())
+// console.log("to TIme String : ",myDate.toTimeString())
+// console.log("to ISOString : ",myDate.toISOString())
+// console.log("to JSON : ",myDate.toJSON())
+// console.log("to local Date String : ",myDate.toLocaleDateString())
 
-console.table([accountID,accouuntCity])
+let myCreatedDate=new Date(2022,0,22)//year,month,date perticular
+console.log(myCreatedDate.toLocaleString())
 
-"use strict"//treat JS code as a newer version
-
-//Data types
-// let name="someone"
-// let age=45
-// let t=true
-
-// let state;//undefined (not yet defined)
-// let num=null;//empty
-//symbol => unique
-//object  
-
-//conversion
-// let score="34abc"
-// console.log(typeof score)
-// let valueInNumber=Number(score)//conversion form string to number
-// console.log(typeof valueInNumber)//number
-// console.log(valueInNumber)//NaN
-
-// let isLogIn=1;
-// let isLogIn="";
-// let boolLogIn=Boolean(isLogIn);//false as ""
-// console.log(boolLogIn)//true as 1
-
-// Operations
-// console.log("2"+4+5)//245
-// console.log(4+5+"8")//98
-
-//comparision
-// console.log(null>0)//false
-// console.log(null==0)//false
-// console.log(null>=0)//true
-// console.log(null<=0)//true
-
-//primitive 7 (string,int,bool,null,undefined,BigInt,symbol) call by value
-const id=Symbol('123')
-const anotherId=Symbol('123')
-
-console.log(id===anotherId)//false
-//non-primitive (Array,objects,Functions) reference type
 //Array
-const heros=["someone","another"]
-//object
-let obj={
-    name:'someone',
-    age:45
-}
-//function
-const hello=()=>{
-    console.log("Hello World")
+const myArr=[0,1,2,3,4,5]//array shares shallow copy of its elements(by reference)
+const ele=myArr;
+for (let i = 0; i < myArr.length; i++) {
+    ele[i]++;
+    // console.log(myArr[i])
 }
 
-//Memory Allocation
-//there are two Types of Memory 
-//the premitive type use the stack 
-//and the non primitive type use the heap
+const myArr2=new Array(1,2,3,4,5)
 
-//difference
-//stack provides copy of the variable
-//heap provides the reference(Address) of the variable
+//methods of Array
+myArr2.push(6)
+myArr2.push(7)
+myArr2.pop()
+myArr2.unshift(0)//will insert at the Start
+myArr2.shift()//will remove form the Start
+console.log(myArr2)
 
-let myYoutube="Someone"
-let anotherYoutube=myYoutube
-anotherYoutube="Another"
-// console.log(myYoutube)//the older value as it is pass my Copy()
-// console.log(anotherYoutube)
+console.log(myArr2.includes(9))
+console.log(myArr2.indexOf(10))
+console.log(myArr2.join())//will convert the Array into string 
+console.log(typeof myArr2.join())//string
 
+//slice/splice
+//the difference between slice and splice
+const Arr=[1,2,3,4,5,6,7,8]
+console.log("the Original Array : ",Arr)
+const ArrUsingSlice=Arr.slice(1,3)//will copy elements from 1 index to 3-1 index
+const ArrUsingSplice=Arr.splice(1,3)//will cut elements from 1 to 3 index form the Original Array
+console.log("Using Alice : ",ArrUsingSlice)
+console.log("Using Splice : ",ArrUsingSplice)
+console.log("The Original Array After using Splice : ",Arr)
 
-let user1={
-    name:"Hello",
-    age:55
+//Array in depth
+const Marvel=["Ironman","Thor","Captain"]
+const DC=["flash","Superman","Batman"]
+// const comined=Marvel.push(DC)//this will push the DC array inside marvel array as a element 
+// console.log(Marvel)
+// console.log(Marvel[3][1])
+// const Combined=Marvel.concat(DC)//this will combine both the Array 
+// console.log(Combined)
+
+//using the spread operator
+const Combined=[...Marvel,...DC]
+console.log(Combined)
+
+const ComplexArray=[1,2,3,[4,5,6],7,[8,9,[10,11,12]]]//this is a complex Array
+const NormalArray=ComplexArray.flat(Infinity)//this will Flatten the Array to Infinite Depth (the Depth can be 0,1,2,4,5...)
+console.log(NormalArray)
+
+const AnotherArray=Array.from("Someone")
+console.log(AnotherArray)
+console.log(Array.isArray(AnotherArray))
+
+console.log(Array.from({name:"Another"}))//this is a unique case in which we have to define from which values the Array should be created
+
+let Score1=100
+let Score2=101
+let Score3=102
+
+console.log(Array.of(Score1,Score2,Score3))
+
+//Object 
+//whenever we define object from literal then singleton does not form
+//but if it is formed SingleTon)
+// const usingCons=Object.create({name:"Someone",age:66})
+// console.log(usingCons)
+
+//using literals (Does not form Singleton)
+const User={
+    name:"user101",
+    age:45,
+    isLoggedIn:false
 }
-let user2=user1//pass by reference
-user2.name="World"//this will change in the original Address
+console.log(User.name)
+console.log(User["age"])
 
-console.log(user2.name)
-console.log(user1.name)
+//How to use Symbol in Object
+const aSymbol=Symbol("key")
+const aObject={
+    [aSymbol]:"key",
+    Passkey:123456
+}
+console.log(aObject[aSymbol])
+console.log(typeof aSymbol)
 
-//string (Modern syntax)
-console.log(`this is the example of string interpolation,${5-8}`)
+// //how to freeze a value of a object
+// Object.freeze(aObject)
+// aObject.Passkey=12312
 
-const gameName=new String("Hello world")//this is another way to create String
-console.log(gameName)
-
-//string methods like:substring,slice,replace,trim and etc
-
-//Number and Maths
-const num1=101
-const num=new Number(101)
-console.log(num1)
-console.log(num)
-console.log(num.toString().length)
-console.log(num.toFixed(2))//number of values after decimal
-
-const othernum=454.89
-console.log(othernum.toPrecision(3))//used for round off like round off of 3 digit or more
-
-const Hunderds=100000
-console.log(Hunderds.toLocaleString())//will assign commas according to the USA values
-console.log(Hunderds.toLocaleString('en-IN'))//will assign commas according to the Indian values
-
-//Maths(Library)
-console.log(Math);
-console.log(Math.abs(-55))//will convert the negative to the positive value
-console.log(Math.round(45.33))//will convert value to its round off
-console.log(Math.ceil(4.45))//will convert to upper round off value
-console.log(Math.floor(4.45))//will convert to lower round off value
-console.log(Math.min(1,2,4,6))//will give the minimum value in the array
-console.log(Math.max(2,5,6,8,9))//will give the maximum value in the array
-
-//Math Random
-console.log(Math.random())//will give a random value form 1 to 0
-console.log(Math.random()*10)//will give random value form 0 to 10
-console.log((Math.random()*10)+1)//will give a random value form 1 to 10
-console.log(Math.floor(Math.random()*10)+1)//will give the round off value
-
-const min=10;
-const max=100;
-//to get values form minimum range to maximum range
-console.log(Math.floor(Math.random()*(max-min+1))+min)
+//how to define function in Object 
+aObject.greeting=function(){
+    console.log("this is a function of the Object")
+}
+aObject.greetingTwo=function(){
+    console.log(`this is also a function of the Object ${this.Passkey}`)//this keyword is used to reference the key of the same Object
+}
+console.log(aObject.greeting())
+aObject.greeting()
+console.log(aObject.greetingTwo())
