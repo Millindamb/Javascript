@@ -1,120 +1,162 @@
-const Tinder=new Object()
-Tinder.name="Someone"
-Tinder.id="id4545"
-Tinder.age=454
-// console.log(Tinder)
+//global and scope in js
+{}//this is a scope
 
-const regularUser={
-    id:101,
-    Information:{
-        Biodata:{
-            name:"Someone",
-            age:55
-        }
+let a=100;
+
+if(true){
+    let a=10
+    const b=20
+    var c=30
+    console.log(`the value a Inside Scope : ${a}`)
+}
+
+console.log(`the value of a Outside Scope is : ${a}`)
+// console.log(a) this is not accessed out of the Scope
+// console.log(b) this is also not accessed out of the Scope
+console.log(c)//this is Accessed out of the Scope
+
+
+//Scope Level{nested Scope}
+function one(){
+    const name="Someone"
+    function two(){
+        website="Another"
+        console.log(name)//we can access the varaible of the outer(one) scope
     }
-}
-// console.log(regularUser["Information"]["Biodata"]["name"])
-// console.log(regularUser.Information.Biodata.name)
-
-//how to combine Objects
-const obj1={1:"one",2:"two"}
-const obj2={3:"Three",4:"Four"}
-//Way1: const obj3={obj1,obj2}//this will store the two object inside a single object
-//Way2: const obj3=Object.assign(obj1,obj2)//to combine two Objects or by
-//Way3:this is also do the same work of combining the object (the correct one) as the first empty object act as a source
-const obj3=Object.assign({},obj1,obj2)
-//Way 4:by using the Spread Method
-const obj4={...obj1,...obj2}
-// console.log(obj3)
-// console.log(obj4)
-
-//How to handle Object inside Array from the DataBase
-const Data=[
-    {
-        id:1,
-        name:"Someone"
-    },
-    {
-        id:2,
-        name:"another"
-    },
-    {
-        id:3,
-        name:"Someone2"
-    }
-]
-
-//ways to access the data form the array
-// console.log(Data[1].id)//to access the data inside the object which is inside the Array
-// or by using the map function
-// Data.map((obj)=>console.log(obj.name))
-//or by using the Onject.keys function
-// console.log(Object.keys(Data))//this will provide all the keys in a single Array 
-// console.log(Object.values(Data))//this will provide all the values in a single Array 
-// console.log(Object.entries(Data))
-// console.log(Data.hasOwnProperty('1'))//will check for the property is avaliable in the object pr not
-
-//destructuring
-const course={
-    coursename:"javascript",
-    price:99999,
-    instructor:"Someone"
+    // console.log(website)//we cannot access the varaible of the inner(two) scope
+    two()
 }
 
-// how to extract a particuler value from object
-const {instructor}=course
-console.log(instructor)
-// or we can also make a short cut for it 
-const {coursename:cn}=course
-console.log(cn)
+one()
 
-//JSON
-//json looks like this
-// {
-//     "name":"Someone",
-//     "age":"44"
-// }
-
-//Functions and Parameter
-function sum(num1,num2){//here num1,num2 are the parameter
-    console.log(num1+num2)
+//hosting
+console.log(addone(5))//this will print 6 and will not gibve any error
+function addone(num){
+    return num+1
 }
 
-sum(1,2)//1 and 2 are the arguments
-
-//function which return something
-function sub(num1,num2){
-    return num1-num2;
-}
-console.log(sub(4,2));
-
-//using rest operator(...)
-// (...) is the spread and the rest operator 
-function calculateCartPrice(...num1){//this will take all the argments and will save them inside a array
-    return num1
+// console.log(addtwo(4))//this will give error
+const addtwo=function(num){
+    return num+2
 }
 
-console.log(calculateCartPrice(100,200,300))
+//how we can use a function it depends on how we define it
 
-//how to pass object in function 
+//THIS and arrow function
 
-const User={
-    name:"Someone",
-    price:666
-}
-
-function handleObject(anotherUser){
-    console.log(`the name of the user is ${anotherUser.name} and the price of item is ${anotherUser.price}`)
-}
-
-handleObject(User);
-
-//how to pass Array inside a funtion
-const arr=[1,2,3,4,5,6]
-function handleArray(arr){
-    for(let i=0;i<arr.length;i++){
-        console.log(arr[i])
+//this keyword is used to refere current context(variable)
+const websiteDetail={
+    name:"aUser",
+    host:"/5453",
+    Welcome:function(){
+        console.log(`hello ${this.name}`);
+        console.log(this)//this will print about the current context(values,variable)
     }
 }
 
-handleArray(arr)
+websiteDetail.Welcome()
+console.log(this)//in browser this will refere to the window object(through which we access all the events)
+//but in terminal this will be a empty object because of the node
+
+function chai(){
+    // console.log(this) this will print all the inbuild properties of the chai function
+}
+chai()
+
+//Arrow function
+const arrow=()=>{
+    console.log("this is a Arrow function")
+}
+arrow()
+
+//normal arrow function
+const sum=(num1,num2)=>{
+    return num1+num2
+}
+//another way to write this function (implicit return) in less syntax
+const sum1=(num1,num2)=>num1+num2
+const sum2=(num2)=>({num1:num2})//sane syntax but parenthese are used to return a object implicitly
+// implicit means returning something with out writing the return keyword
+console.log(sum1(1,2))
+console.log(sum2(5))
+
+console.log("----------------------------IIFE----------------------------");
+//Immediately Invoked Function Expressions (IIFE)
+//IIFE are used when the variables or things get pollute from the Global Scope
+
+// syntax
+// (function definition)()
+// example of IIFE with function
+(function fun(){
+    console.log("this is a example of IIFE");
+})();
+// example of IIFE with arrow function
+(()=>{console.log("this is also a example of IIFE")})();
+//example of IIFE with parameters
+((num)=>console.log(num))(4);
+((name)=>console.log("hello",name))("Someone")
+
+
+//Execution of the code in java Script
+//javascript Execution Context: how javascript your code 
+//at the very start the common thing is the Global Execution Context
+//the this referces to the the Global Execution Context(Window Object)
+
+//after the Global Exection context 
+// the javascript code get executed in to phase
+// 1) Memory Creation and Phase
+// and 2) Execution Pahse
+
+// in memory exe phase the memory for the variable and the functions are defined
+//in the Execution phase all the calculation like +,- took place
+
+// Example with code (Dryrun)
+// Code:
+let val1=10
+let val2=20
+function addNum(num1,num2){
+    let total=num1+num2
+    return total
+}
+let result = addNum(val1,val2)
+let result2 = addNum(1,2)
+
+//Execution of the Code
+// Step 1:
+// Global Execution
+
+// Step 2: Memory Creation Phase
+// val1->undefined
+// val2->undefined
+// addNum->definition
+// result1=undefined
+// result2->undefined
+
+//Step3: Execution Phase
+val1=10
+val2=20
+// then for the function there is the definition of the function
+
+//then call for the function for the val1,val2
+// in this call the new Executional context will be created for the function 
+// the Box (Executional context) is created every time a function is Call,this box contains New variable enviorment and Execution Thread
+
+//now for the add number the Memory creation and the execution phase will be re-execute
+//memory phase for the result1
+val1=undefined
+val2=undefined
+total=undefined
+//execution context
+val1=10
+val2=20
+num1=10
+num2=20
+total=30
+// now this total is returned to the global executional context
+// then the executional context created for the function call get deleted
+
+// now for the result2
+// same thing will get executed
+// first the memory creation execution
+// then second the executon phase
+// then in the execution pahse the executional context will be created for the function call for the addNum
