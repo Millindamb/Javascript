@@ -1,113 +1,120 @@
-//Date and Time 
-// const myDate=new Date()
-// console.log("Normal : ",myDate)
-// console.log("to String : ",myDate.toString())
-// console.log("to Date String : ",myDate.toDateString())
-// console.log("to TIme String : ",myDate.toTimeString())
-// console.log("to ISOString : ",myDate.toISOString())
-// console.log("to JSON : ",myDate.toJSON())
-// console.log("to local Date String : ",myDate.toLocaleDateString())
+const Tinder=new Object()
+Tinder.name="Someone"
+Tinder.id="id4545"
+Tinder.age=454
+// console.log(Tinder)
 
-let myCreatedDate=new Date(2022,0,22)//year,month,date perticular
-console.log(myCreatedDate.toLocaleString())
+const regularUser={
+    id:101,
+    Information:{
+        Biodata:{
+            name:"Someone",
+            age:55
+        }
+    }
+}
+// console.log(regularUser["Information"]["Biodata"]["name"])
+// console.log(regularUser.Information.Biodata.name)
 
-//Array
-const myArr=[0,1,2,3,4,5]//array shares shallow copy of its elements(by reference)
-const ele=myArr;
-for (let i = 0; i < myArr.length; i++) {
-    ele[i]++;
-    // console.log(myArr[i])
+//how to combine Objects
+const obj1={1:"one",2:"two"}
+const obj2={3:"Three",4:"Four"}
+//Way1: const obj3={obj1,obj2}//this will store the two object inside a single object
+//Way2: const obj3=Object.assign(obj1,obj2)//to combine two Objects or by
+//Way3:this is also do the same work of combining the object (the correct one) as the first empty object act as a source
+const obj3=Object.assign({},obj1,obj2)
+//Way 4:by using the Spread Method
+const obj4={...obj1,...obj2}
+// console.log(obj3)
+// console.log(obj4)
+
+//How to handle Object inside Array from the DataBase
+const Data=[
+    {
+        id:1,
+        name:"Someone"
+    },
+    {
+        id:2,
+        name:"another"
+    },
+    {
+        id:3,
+        name:"Someone2"
+    }
+]
+
+//ways to access the data form the array
+// console.log(Data[1].id)//to access the data inside the object which is inside the Array
+// or by using the map function
+// Data.map((obj)=>console.log(obj.name))
+//or by using the Onject.keys function
+// console.log(Object.keys(Data))//this will provide all the keys in a single Array 
+// console.log(Object.values(Data))//this will provide all the values in a single Array 
+// console.log(Object.entries(Data))
+// console.log(Data.hasOwnProperty('1'))//will check for the property is avaliable in the object pr not
+
+//destructuring
+const course={
+    coursename:"javascript",
+    price:99999,
+    instructor:"Someone"
 }
 
-const myArr2=new Array(1,2,3,4,5)
+// how to extract a particuler value from object
+const {instructor}=course
+console.log(instructor)
+// or we can also make a short cut for it 
+const {coursename:cn}=course
+console.log(cn)
 
-//methods of Array
-myArr2.push(6)
-myArr2.push(7)
-myArr2.pop()
-myArr2.unshift(0)//will insert at the Start
-myArr2.shift()//will remove form the Start
-console.log(myArr2)
+//JSON
+//json looks like this
+// {
+//     "name":"Someone",
+//     "age":"44"
+// }
 
-console.log(myArr2.includes(9))
-console.log(myArr2.indexOf(10))
-console.log(myArr2.join())//will convert the Array into string 
-console.log(typeof myArr2.join())//string
+//Functions and Parameter
+function sum(num1,num2){//here num1,num2 are the parameter
+    console.log(num1+num2)
+}
 
-//slice/splice
-//the difference between slice and splice
-const Arr=[1,2,3,4,5,6,7,8]
-console.log("the Original Array : ",Arr)
-const ArrUsingSlice=Arr.slice(1,3)//will copy elements from 1 index to 3-1 index
-const ArrUsingSplice=Arr.splice(1,3)//will cut elements from 1 to 3 index form the Original Array
-console.log("Using Alice : ",ArrUsingSlice)
-console.log("Using Splice : ",ArrUsingSplice)
-console.log("The Original Array After using Splice : ",Arr)
+sum(1,2)//1 and 2 are the arguments
 
-//Array in depth
-const Marvel=["Ironman","Thor","Captain"]
-const DC=["flash","Superman","Batman"]
-// const comined=Marvel.push(DC)//this will push the DC array inside marvel array as a element 
-// console.log(Marvel)
-// console.log(Marvel[3][1])
-// const Combined=Marvel.concat(DC)//this will combine both the Array 
-// console.log(Combined)
+//function which return something
+function sub(num1,num2){
+    return num1-num2;
+}
+console.log(sub(4,2));
 
-//using the spread operator
-const Combined=[...Marvel,...DC]
-console.log(Combined)
+//using rest operator(...)
+// (...) is the spread and the rest operator 
+function calculateCartPrice(...num1){//this will take all the argments and will save them inside a array
+    return num1
+}
 
-const ComplexArray=[1,2,3,[4,5,6],7,[8,9,[10,11,12]]]//this is a complex Array
-const NormalArray=ComplexArray.flat(Infinity)//this will Flatten the Array to Infinite Depth (the Depth can be 0,1,2,4,5...)
-console.log(NormalArray)
+console.log(calculateCartPrice(100,200,300))
 
-const AnotherArray=Array.from("Someone")
-console.log(AnotherArray)
-console.log(Array.isArray(AnotherArray))
+//how to pass object in function 
 
-console.log(Array.from({name:"Another"}))//this is a unique case in which we have to define from which values the Array should be created
-
-let Score1=100
-let Score2=101
-let Score3=102
-
-console.log(Array.of(Score1,Score2,Score3))
-
-//Object 
-//whenever we define object from literal then singleton does not form
-//but if it is formed SingleTon)
-// const usingCons=Object.create({name:"Someone",age:66})
-// console.log(usingCons)
-
-//using literals (Does not form Singleton)
 const User={
-    name:"user101",
-    age:45,
-    isLoggedIn:false
+    name:"Someone",
+    price:666
 }
-console.log(User.name)
-console.log(User["age"])
 
-//How to use Symbol in Object
-const aSymbol=Symbol("key")
-const aObject={
-    [aSymbol]:"key",
-    Passkey:123456
+function handleObject(anotherUser){
+    console.log(`the name of the user is ${anotherUser.name} and the price of item is ${anotherUser.price}`)
 }
-console.log(aObject[aSymbol])
-console.log(typeof aSymbol)
 
-// //how to freeze a value of a object
-// Object.freeze(aObject)
-// aObject.Passkey=12312
+handleObject(User);
 
-//how to define function in Object 
-aObject.greeting=function(){
-    console.log("this is a function of the Object")
+//how to pass Array inside a funtion
+const arr=[1,2,3,4,5,6]
+function handleArray(arr){
+    for(let i=0;i<arr.length;i++){
+        console.log(arr[i])
+    }
 }
-aObject.greetingTwo=function(){
-    console.log(`this is also a function of the Object ${this.Passkey}`)//this keyword is used to reference the key of the same Object
-}
-console.log(aObject.greeting())
-aObject.greeting()
-console.log(aObject.greetingTwo())
+
+handleArray(arr)
