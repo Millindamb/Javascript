@@ -1,105 +1,74 @@
-//Control flow
-//if
-let condition=true;
-if(condition){
-    //scope
-    console.log("this is the scope of the if block")
-}
+//filter and map
+const num=[1,2,3,4,5,6,7,8,9]
+const nums=num.filter((item)=>item>5)
+console.log(nums)
 
-const something=2
+//using multiple map and filter at once
+let newnums=num.map((item)=>item*10).map((item)=>item+5).filter((item)=>item>=55)
+console.log(newnums)
 
-//switch case
-switch (something) {
-    case 1:
-        console.log("the value was 1")
-        break;
+//reduce method 
+let numbers=[1,2,3,4,5,6]
 
-    case 2:
-        console.log("the value was 2")
+//using the arrow function(Shorter)
+const initialvalue=0
+let sum=numbers.reduce((totalSum,currVal)=>currVal+totalSum,initialvalue)//here the totalSum is know as the Accumbelator
 
-    default:
-        break;
-}
+console.log(sum)
+//in the reduce method 
+//at the start of the method it will add the valur of the initial value to the totalsum
+//then one by one add the value in the totalSum and at the last will return the total sum
 
-//the use ?? operator
-// ?? is used when we have to assign value form a result and he have dought that the 
-// value can can be null or undefined so to prevent form null and undefined we use the ?? operator
+//same code with function syntax
+sum=numbers.reduce(function(acc,currVal){
+    console.log(`the currTotal is : ${acc} , the currVal is : ${currVal}`)
+    return acc+currVal
+},3)
 
-const val=null ?? 4
-console.log(val)
+console.log(sum)
 
-const digit=null ?? undefined ?? 66
-console.log(digit)
-
-//Loops (iterations)
-//there are three type of loops in javascript
-//for loop
-//while loop
-//do-while loop
-
-//keywords like: break and continue
-for (let i = 1; i < 11; i++) {
-    if(i==2)continue//will skip the below code when i==2
-    if(i==5)break//will break out of the loop when i==5
-    // console.log(i)
-}
-
-//High Order Loop for Array
-//For of 
-const arr=[1,2,3,4,5,6]
-// for(const i of arr)console.log(i)
-const name="Someone"
-// for(const a of name)console.log(a)
-
-//Map
-const map=new Map()
-map.set(1,"Someone")
-map.set(2,"Another")
-map.set(3,"Someone-Else")
-// console.log(map)
-
-// for(const key of map)//console.log(key)//this loop will print both key and value together
-//to destructure the key value pair
-// for(const [key,value] of map)console.log("the key is : "+key," the value is : "+value)
-
-//as we cannot use for of loop on object 
-//For in loop for object 
-
-const myObj={
-    js:"javascript",
-    cpp:"C++",
-    rb:"ruby",
-}
-
-for (const key in myObj) {
-    // console.log(key+" "+myObj[key])
-}
-//for in loop if used on Array then will give the key(index) of the array
-
-//For Each function
-const numbers=[78,4,44,4,4,55,55,4,4,4]
-// numbers.forEach((i)=>console.log(i))
-//or by using 
-function print(number){
-    // console.log(number)
-}
-numbers.forEach(print)
-
-numbers.forEach((item,index,arr)=>console.log(`the ${item} is Stored at ${index} in the arr ${arr}`))
-
-//how to iteratate on Array of objects
-const Languages=[
+//using reduce method to add all the prices of the courses
+const courses=[
     {
-        languageName:"javaScript",
-        languageFileName:"js"
+        course:"js",
+        price:999
     },
     {
-        languageName:"java",
-        languageFileName:"java"
+        course:"c++",
+        price:899
     },
     {
-        languageName:"c++",
-        languageFileName:"Cpp"
+        course:"java",
+        price:759
+    },
+    {
+        course:"HTML",
+        price:199
     }
 ]
-Languages.forEach((eachObj)=>console.log(eachObj.languageName))
+
+const TotalPrice=courses.reduce((total,course)=>total+course.price,0)
+console.log("the total price of the courses is : "+TotalPrice)
+
+//DOM Manupulation Introduction 
+
+// document.getElementById('box').innerHTML='<h1 style="color: white;">Something</h1>'
+title=document.getElementById('box')
+title.style.backgroundColor='blue'
+title.style.borderRadius="15px"
+title.style.border="2px solid"
+
+console.log(title.innerHTML)
+console.log(title.innerText)//this will only show the visible text
+console.log(title.textContent)//this will also show the hidden text
+
+const x=document.querySelectorAll('.listId')//#for class//this will give the Array of nodeList
+x.forEach((i)=>i.style.backgroundColor='gray')
+
+const y=document.querySelector('ul')
+const w=y.querySelector('li')
+w.style.backgroundColor="green"
+const collection=document.getElementsByClassName("listId")//this will give a HTML collection of the elements
+const normalArr=Array.from(collection)//converting the HTML collection to normal array
+normalArr.forEach((l)=>console.log(l.tagName))//using the forEach method on the normal array as we cannot use forEach on the HTML collection
+normalArr.map((s)=>console.log(s.tagName))
