@@ -1,74 +1,64 @@
-//filter and map
-const num=[1,2,3,4,5,6,7,8,9]
-const nums=num.filter((item)=>item>5)
-console.log(nums)
 
-//using multiple map and filter at once
-let newnums=num.map((item)=>item*10).map((item)=>item+5).filter((item)=>item>=55)
-console.log(newnums)
+const parent=document.querySelector('.parent')
+console.log(parent)
+// console.log(parent.children[0].innerText)
 
-//reduce method 
-let numbers=[1,2,3,4,5,6]
+for (let i = 0; i < parent.children.length; i++) {
+    console.log(parent.children[i].innerText)
+    parent.children[i].style.backgroundColor="gray"
+    parent.children[i].style.color="black"
+    parent.children[i].style.border="2px solid black"
+    parent.children[i].style.display="flex"
+    parent.children[i].style.justifyContent="center"
+    parent.children[i].style.borderRadius="5px"
+}
 
-//using the arrow function(Shorter)
-const initialvalue=0
-let sum=numbers.reduce((totalSum,currVal)=>currVal+totalSum,initialvalue)//here the totalSum is know as the Accumbelator
+// console.log(parent.firstElementChild)//will give the first child of the parent
+// console.log(parent.lastElementChild)//will give the last child of the parent
 
-console.log(sum)
-//in the reduce method 
-//at the start of the method it will add the valur of the initial value to the totalsum
-//then one by one add the value in the totalSum and at the last will return the total sum
+const dayOne=parent.firstElementChild
+console.log(dayOne.parentElement)
 
-//same code with function syntax
-sum=numbers.reduce(function(acc,currVal){
-    console.log(`the currTotal is : ${acc} , the currVal is : ${currVal}`)
-    return acc+currVal
-},3)
+const another=document.querySelector(".Another")
+const div=document.createElement('h1')
+div.className="main"
+div.style.backgroundColor="gray"
+div.style.border="2px solid black"
+div.style.borderRadius="5px"
+div.style.color="black"
+const text=document.createTextNode("Hello World")
+div.appendChild(text)
+console.log(div)
+another.appendChild(div)
 
-console.log(sum)
+//DOM
+function addLanguage(langName){//this is not the Optimal Approach to append a child 
+    //at it treverse the whole tree to append the child
+    const li=document.createElement('li')
+    li.innerText=langName
+    document.querySelector('.language').appendChild(li)
+}
+// addLanguage("Python")
+// addLanguage("C++")
+function addLanguageOptimal(langName){
+    const li=document.createElement('li')
+    li.appendChild(document.createTextNode(langName))//Appending the language name in the li
+    document.querySelector('.language').appendChild(li)   
+}
+addLanguageOptimal("Python")
+addLanguageOptimal("C++")
+//the addLangaugeOptimal is optimal as compared to the addLangauge as it do not treverse the whole tree to append the text
 
-//using reduce method to add all the prices of the courses
-const courses=[
-    {
-        course:"js",
-        price:999
-    },
-    {
-        course:"c++",
-        price:899
-    },
-    {
-        course:"java",
-        price:759
-    },
-    {
-        course:"HTML",
-        price:199
-    }
-]
+//Edit
+const li2=document.querySelector("li:nth-child(2)")//mark the 2nd Child of li
+const newLi=document.createElement("li")//created a new li element
+newLi.appendChild(document.createTextNode("Mojo"))//change the text of the li
+li2.replaceWith(newLi)//replace the new li with the old li
 
-const TotalPrice=courses.reduce((total,course)=>total+course.price,0)
-console.log("the total price of the courses is : "+TotalPrice)
+//second-way to change the text
+const firstLang=document.querySelector("li:first-child")
+firstLang.outerHTML='<li>React</li>'
 
-//DOM Manupulation Introduction 
-
-// document.getElementById('box').innerHTML='<h1 style="color: white;">Something</h1>'
-title=document.getElementById('box')
-title.style.backgroundColor='blue'
-title.style.borderRadius="15px"
-title.style.border="2px solid"
-
-console.log(title.innerHTML)
-console.log(title.innerText)//this will only show the visible text
-console.log(title.textContent)//this will also show the hidden text
-
-const x=document.querySelectorAll('.listId')//#for class//this will give the Array of nodeList
-x.forEach((i)=>i.style.backgroundColor='gray')
-
-const y=document.querySelector('ul')
-const w=y.querySelector('li')
-w.style.backgroundColor="green"
-const collection=document.getElementsByClassName("listId")//this will give a HTML collection of the elements
-const normalArr=Array.from(collection)//converting the HTML collection to normal array
-normalArr.forEach((l)=>console.log(l.tagName))//using the forEach method on the normal array as we cannot use forEach on the HTML collection
-normalArr.map((s)=>console.log(s.tagName))
+//how to remove a Element
+const lastLang=document.querySelector("li:last-child")
+lastLang.remove()
