@@ -1,56 +1,98 @@
-//Events
+//async javascript fundamental
 
-//Using onClick 
-// document.getElementById('owl').onclick = function(){
-//     alert("owl clicked")
-// }
+//as default javascript is a synchronous and single threaded language 
 
-//using the addEventListener
-document.querySelector('#owl').addEventListener('click',(e)=>{
-        // alert("owl was clicked")
-},false)//there are there parameter in the AddEventListener the action,function and the boolean true or false
-// here e will provide all the Events like the size of the window size,position of the cursor at the time of the action
+// there two types of code: Blocking Code and Non Blocking Code 
+//blocking code: block the flow of the program
+//non blocking code: Does not block execution
 
-//the third parameter false is the default parameter
-//the third parameter is know for the Event prapogation
-// there are two Context of Event Prapogation
-//1)Event Bubbuling(false) used mainly
-//2)Event capturing(true)
+// console.log("First")
+// setTimeout(() => {
+//     console.log("Hello World")
+// }, 0);//even if the time is 0,these line will run after printing second
+// //as this setime out will work as a call ans in that time the console get run
+// console.log("Second")
 
-// example of Event Prapogation
-document.querySelector('#owl').addEventListener('click',(e)=>{
-        console.log("owl was clicked")
-},false)
-document.querySelector('#images').addEventListener('click',(e)=>{
-        // console.log("Images were Clicked")
-},false)
+// //set time out will do the work after a time once
+// setTimeout(() => {
+//     console.log("Example of setTimeout")
+// }, 2000);
+// //but setInterval will do the work again and again after that time
+// setInterval(()=>{
+//     console.log("Example of setInterval")
+// },5000)
 
-//Case 1:false(default)
-//whenever we click any images then the images event will work
-//but whenever we clik the owl image then both the event will work but first owl then images from bottom to top like bubbules
+//how to stop a setTimeout using the clearTimeout function
+// const changeMe=setTimeout(()=>{console.log("hello")},2000)
+// clearTimeout(changeMe)//this will stop the changeMe 
 
-//Case 2:true
-//whenever we click the owl image then both the event will work but first the images then the owl form top to bottom like capturing
+//setTimeout
+const changeHeading=setTimeout(()=>{
+    document.querySelector(".heading").innerHTML="Something is Wrong"
+},5000)
 
-//use of the Stop Propogation method
-// stopPropogation() is used when we do not want the propagation to happen
-
-//type, timestamp, defaultprevented, target, toelement
-//srcelement, currenttarget, clientX, clientY, screenY, altkey, ctrl.key
-
-//preventDefault
-document.querySelector('#google').addEventListener('click',(e)=>{
-        e.preventDefault()//the link stop working as it is preventing the default behaviour
-        // e.stopPropagation()
-        console.log("google was clicked")
+const btn=document.querySelector(".button")
+btn.addEventListener("click",()=>{
+    clearTimeout(changeHeading)
+    console.log("Changes Stoped")
 })
 
+//setInterval
 
-//Example
-document.querySelector('#images').addEventListener('click',(e)=>{
-        //1
-        if(e.target.tagName==='IMG'){
-                let removeIt=e.target.parentNode;
-                removeIt.remove()
-        }
+const sayDate=(name)=>{
+    console.log("hello",name,"the Time is :",Date.now().toString())
+}
+let interval
+const stBtn=document.querySelector("#start")
+const spBtn=document.querySelector("#stop")
+
+spBtn.addEventListener("click",()=>{clearInterval(interval)})
+stBtn.addEventListener("click",()=>{interval=setInterval(sayDate,5000,"User")})
+
+//Project: Color Changer
+//generate a random color in hex code
+
+const randomColor=()=>{
+    const hex="0123456789ABCDEF"
+    let color="#"
+    for(let i=0;i<6;i++){
+        const idx=Math.floor(Math.random()*16)
+        color+=hex[idx]
+    }
+    return color
+}
+let colorChanger
+const spColor=document.querySelector("#spColor")
+const stColor=document.querySelector("#stColor")
+const bg=document.querySelector("body")
+spColor.addEventListener("click",()=>{
+    clearInterval(colorChanger)
+    colorChanger=null;//as there is no use of the colorChanger (for optimization) dereference
+})
+stColor.addEventListener("click",()=>{
+    if(!colorChanger){
+        colorChanger=setInterval(()=>{
+            const color=randomColor()
+            bg.style.backgroundColor=color
+        },2500)
+    }
+})
+
+//project 2 key tracker
+const insert=document.querySelector("#insert")
+window.addEventListener('keydown',(e)=>{
+    insert.innerHTML=`
+    <table>
+        <tr>
+            <th>key</th>
+            <th>keyCode</th>
+            <th>code</th>
+        </tr>
+        <tr>
+            <td>${e.key}</td>
+            <td>${e.keyCode}</td>
+            <td>${e.code}</td>
+        </tr>
+    </table>
+    `
 })
